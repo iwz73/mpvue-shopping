@@ -1,0 +1,66 @@
+
+<template>
+  <div class="zan-badge">
+  <div
+    class="zan-badge__text"
+    :style="{color : color, backgroundColor: backgroundColor, fontSize: (fontSize * 2)+'px', boxShadow:boxShadow }"
+  >
+    <span>{{content}}</span>
+  </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    color: {
+      type: String,
+      default: '#fff'
+    },
+    backgroundColor: {
+      type: String,
+      default: '#f44'
+    },
+    fontSize: {
+      type: Number,
+      default: 10
+    },
+    boxShadow: {
+      type: String,
+      default: '0 0 0 2px #fff'
+    },
+    content: {
+      type: String,
+      default: '9999'
+    }
+  }
+}
+</script>
+
+<style>
+.zan-badge {
+  position: relative;
+}
+.zan-badge__text {
+  position: absolute;
+  top: -0.8em;
+  right: 0;
+  height: 1.6em;
+  min-width: 1.6em;
+  line-height: 1.6;
+  padding: 0 0.4em;
+  font-size: 20px;
+  border-radius: 0.8em;
+  background: #f44;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  -webkit-transform: translateX(50%) scale(0.5);
+  transform: translateX(50%) scale(0.5);
+  -webkit-transform-origin: center;
+  transform-origin: center;
+  z-index: 10;
+  box-shadow: 0 0 0 2px #fff;
+  box-sizing: border-box;
+}
+</style>
