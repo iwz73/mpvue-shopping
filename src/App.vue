@@ -15,6 +15,10 @@ export default {
 @import url("~@/styles/color.less");
 page {
   background: @backgroundColor;
+  font-size: 14px;
+}
+button{
+  margin: 0;
 }
 /* this rule will be remove */
 * {

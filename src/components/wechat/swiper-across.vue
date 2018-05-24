@@ -1,7 +1,7 @@
 <template>
   <div class="scroll-list">
     <scroll-view class="scroll-view_H" :scroll-x="scrollX">
-      <div class="content"  v-for="(item, index) in lists" :key="index">
+      <div class="content"  v-for="(item, index) in list" :key="index" @click="handleClick(index)">
         <h5 class="title">{{item.title}}</h5>
         <span class="subhead">{{item.subhead}}</span>
         <img :src="item.imgUrl" alt="">
@@ -11,48 +11,26 @@
 </template>
 
 <script>
+// import { showToast } from '@/utils/index'
+
 export default {
   data () {
     return {
-      scrollX: true,
-      list: [
-        {
-          title: '实用卷攻略',
-          subhead: '礼盒卷后直减130',
-          imgUrl: 'http://suo.im/4HNmBN'
-        }, {
-          title: '实用卷攻略',
-          subhead: '礼盒卷后直减130',
-          imgUrl: 'http://suo.im/4HNmBN'
-        }, {
-          title: '实用卷攻略',
-          subhead: '礼盒卷后直减130',
-          imgUrl: 'http://suo.im/4HNmBN'
-        }, {
-          title: '实用卷攻略',
-          subhead: '礼盒卷后直减130',
-          imgUrl: 'http://suo.im/4HNmBN'
-        }, {
-          title: '实用卷攻略',
-          subhead: '礼盒卷后直减130',
-          imgUrl: 'http://suo.im/4HNmBN'
-        }, {
-          title: '实用卷攻略',
-          subhead: '礼盒卷后直减130',
-          imgUrl: 'http://suo.im/4HNmBN'
-        }
-      ]
+      scrollX: true
     }
   },
-  prors: {
+  props: {
     list: {
-      type: Array
+      type: Array,
+      default: []
     }
   },
-  computed: {
-    lists () {
-      console.log(this.list)
-      return this.list
+  mounted () {
+    console.log(this.list)
+  },
+  methods: {
+    handleClick (index) {
+      this.$emit('handleEnterClick', index)
     }
   }
 }

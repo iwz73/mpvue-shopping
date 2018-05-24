@@ -17,8 +17,15 @@ export function formatTime (date) {
 
   return `${t1} ${t2}`
 }
-
+export const showToast = (text) => {
+  wx.showToast({
+    title: text,
+    icon: 'none',
+    duration: 2000
+  })
+}
 export default {
   formatNumber,
-  formatTime
+  formatTime,
+  showToast
 }

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import App from './App'
+import '../static/weui/weui.css'
 
 Vue.config.productionTip = false
 App.mpType = 'app'
@@ -11,12 +12,12 @@ export default {
   // 这个字段走 app.json
   config: {
     // 页面前带有 ^ 符号的，会被编译成首页，其他页面可以选填，我们会自动把 webpack entry 里面的入口页面加进去
-    pages: ['^pages/index/main', 'pages/topic/main', 'pages/cart/main', 'pages/center/main'],
+    pages: ['pages/index/main', 'pages/topic/main', '^pages/cart/main', 'pages/center/main'],
     window: {
-      backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#fff',
+      backgroundTextStyle: 'dark',
+      navigationBarBackgroundColor: '#d91f2f',
       navigationBarTitleText: 'WeChat',
-      navigationBarTextStyle: 'black'
+      navigationBarTextStyle: 'white'
     },
     tabBar: {
       color: '#666666',
@@ -30,11 +31,6 @@ export default {
           iconPath: 'static/images/home.png',
           selectedIconPath: 'static/images/home-actived.png'
         }, {
-          text: '话题',
-          pagePath: 'pages/topic/main',
-          iconPath: 'static/images/topic.png',
-          selectedIconPath: 'static/images/topic-actived.png'
-        }, {
           text: '购物车',
           pagePath: 'pages/cart/main',
           iconPath: 'static/images/cart.png',
@@ -45,6 +41,12 @@ export default {
           iconPath: 'static/images/center.png',
           selectedIconPath: 'static/images/center-actived.png'
         }
+        // {
+        //   text: '话题',
+        //   pagePath: 'pages/topic/main',
+        //   iconPath: 'static/images/topic.png',
+        //   selectedIconPath: 'static/images/topic-actived.png'
+        // },
       ]
     }
   }
