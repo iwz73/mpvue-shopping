@@ -13,6 +13,7 @@ export default {
 
 <style lang="less">
 @import url("~@/styles/color.less");
+// @import "./styles/zanui.wxss";
 page {
   background: @backgroundColor;
   font-size: 14px;

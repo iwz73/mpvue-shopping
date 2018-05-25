@@ -1,8 +1,8 @@
 <template>
   <div class="action-cart">
     <div class="action-checked" @click="handleAll">
-        <icon class="weui-icon-checkbox_circle" type="circle" size="23" v-if="!checked"></icon>
-        <icon class="weui-icon-checkbox_success" type="success" size="23" v-if="checked"></icon>
+        <icon class="checked-icon" type="circle" size="23" v-if="!checked"></icon>
+        <icon class="checked-icon" type="success" size="23" v-if="checked"></icon>
     </div>
     <div class="action-right">
       <div class="action-info">
@@ -41,6 +41,9 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    .checked-icon{
+      margin: 0 9.7px;
+    }
   }
   .action-right{
     flex: 1;

@@ -64,7 +64,7 @@ export default {
       text-align: center;
       overflow:hidden;
       text-overflow:ellipsis;
-      white-space:nowrap
+      white-space:nowrap;
     }
   }
   .card-footer{

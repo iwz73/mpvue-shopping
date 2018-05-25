@@ -40,11 +40,9 @@ export default {
 <style lang="less" scoped>
 .zan-badge {
   position: relative;
+  display: inline-block;
 }
 .zan-badge__text {
-  position: absolute;
-  top: -0.8em;
-  right: 0;
   height: 1.6em;
   min-width: 1.6em;
   line-height: 1.6;
@@ -55,9 +53,7 @@ export default {
   color: #fff;
   text-align: center;
   white-space: nowrap;
-  -webkit-transform: translateX(50%) scale(0.5);
-  transform: translateX(50%) scale(0.5);
-  -webkit-transform-origin: center;
+  transform: scale(0.5);
   transform-origin: center;
   z-index: 10;
   box-shadow: 0 0 0 2px #fff;

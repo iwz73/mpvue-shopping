@@ -147,7 +147,9 @@ export default {
 
   methods: {
     handleEnterClick (index) {
-      showToast('成功')
+      wx.navigateTo({
+        url: 'details/main'
+      })
     }
   },
   created () {
