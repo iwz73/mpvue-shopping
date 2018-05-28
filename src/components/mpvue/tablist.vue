@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <block>
     <div
       v-for="(item, index) in list"
       :key="index"
@@ -11,7 +11,7 @@
     >
       <div class="zan-tab__title">{{ item.title }}</div>
     </div>
-  </div>
+  </block>
 </template>
 
 <script>

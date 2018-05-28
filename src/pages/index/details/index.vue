@@ -5,39 +5,40 @@
       <zanTab v-bind="tab1" :componentId="'tab1'" @change="handleZanTabChange"/>
     </div>
     <div class="details-tab-selected">
-      <div>
-              <!-- 轮播图 -->
-    <slideshow
-    :imgUrls="slideList"
-    ></slideshow>
-    <!-- info -->
-    <div class="details-info">
-      <div class="info-main">
-        <div class="info-title">【25号10点限时限量9.9元秒杀】张大一服装店美国进口，奥巴马审核</div>
-        <enter
-          v-bind="stare"
-        >
-        </enter>
-      </div>
-      <div class="info-price">
-        <span>￥139</span>
-        <badge
-         v-bind="styles"
-        ></badge>
-      </div>
-      <div class="info-footer">
-        <span class="zan-c-gray-dark zan-font-12">快递 0.000</span>
-        <span class="zan-c-gray-dark zan-font-12">月销 9999</span>
-        <span class="zan-c-gray-dark zan-font-12">傲来国花果山</span>
-      </div>
-    </div>
-    <!-- explain -->
-    <div class="details-explain">
-      <span>说明:</span>
-      <block v-for="(item, index) in capsuleData" :key="index">
-        <capsule v-bind="item" ></capsule>
-      </block>
-    </div>
+
+      <block v-if="tab1.selectedId === 'goods'">
+        <!-- 轮播图 -->
+        <slideshow
+        :imgUrls="slideList"
+        ></slideshow>
+        <!-- info -->
+        <div class="details-info">
+          <div class="info-main">
+            <div class="info-title">【25号10点限时限量9.9元秒杀】张大一服装店美国进口，奥巴马审核</div>
+            <enter
+              v-bind="stare"
+            >
+            </enter>
+          </div>
+          <div class="info-price">
+            <span>￥139</span>
+            <badge
+            v-bind="styles"
+            ></badge>
+          </div>
+          <div class="info-footer">
+            <span class="zan-c-gray-dark zan-font-12">快递 0.000</span>
+            <span class="zan-c-gray-dark zan-font-12">月销 9999</span>
+            <span class="zan-c-gray-dark zan-font-12">傲来国花果山</span>
+          </div>
+        </div>
+        <!-- explain -->
+        <div class="details-explain">
+          <span>说明:</span>
+          <block v-for="(item, index) in capsuleData" :key="index">
+            <capsule v-bind="item" ></capsule>
+          </block>
+        </div>
         <!-- cell -->
         <div class="zan-panel">
           <div class="zan-cell zan-cell--access"  @click="togglePopup(false)">
@@ -55,8 +56,13 @@
             <div class="zan-cell__ft"></div>
           </div>
         </div>
-
-      </div>
+      </block>
+      <block v-else-if="tab1.selectedId === 'details'">
+        详情
+      </block>
+      <block v-else>
+        评论
+      </block>
     </div>
 
     <!-- 底部option -->
@@ -93,17 +99,17 @@
           <em>￥139.00</em>
         </div>
         <div class="popup-footer">
-        <div class="footer-left">
-          <span>购买数量</span>
-          <em>剩余{{popupData.stepper1.max}}件</em>
+          <div class="footer-left">
+            <span>购买数量</span>
+            <em>剩余{{popupData.stepper1.max}}件</em>
+          </div>
+          <stepper
+          v-bind="popupData.stepper1"
+          size="small"
+          componentId="stepper1"
+          @handleZanStepperChange="handleZanStepperChange"
+          ></stepper>
         </div>
-        <stepper
-        v-bind="popupData.stepper1"
-        size="small"
-        componentId="stepper1"
-        @handleZanStepperChange="handleZanStepperChange"
-        ></stepper>
-      </div>
       </div>
     </popup>
   </div>
@@ -181,23 +187,17 @@ export default {
       ],
       tab1: {
         list: [{
-          id: 'all',
-          title: '全部'
+          id: 'goods',
+          title: '商品'
         }, {
-          id: 'topay',
-          title: '待付款'
+          id: 'details',
+          title: '详情'
         }, {
-          id: 'tosend',
-          title: '待发货'
-        }, {
-          id: 'send',
-          title: '待收货'
-        }, {
-          id: 'sign',
-          title: '已完成订单'
+          id: 'comment',
+          title: '评论'
         }],
         scroll: false,
-        selectedId: 'all'
+        selectedId: 'goods'
       }
     }
   },
@@ -249,6 +249,13 @@ export default {
 @import url("~@/styles/color.less");
 .details{
   margin-bottom: 60px;
+  margin-top: 50px;
+}
+.zanTab{
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
 }
 .details-info{
   display: flex;
