@@ -3,7 +3,7 @@
   <div class="zan-badge">
   <div
     class="zan-badge__text"
-    :style="{color : color, backgroundColor: backgroundColor, fontSize: (fontSize * 2)+'px', boxShadow:boxShadow }"
+    :style="{color : color, backgroundColor: backgroundColor, fontSize: (fontSize * 2)+'px', boxShadow:boxShadow , borderRadius:borderRadius }"
   >
     <span>{{content}}</span>
   </div>
@@ -29,6 +29,10 @@ export default {
       type: String,
       default: '0 0 0 2px #fff'
     },
+    borderRadius: {
+      type: String,
+      default: '0.8em'
+    },
     content: {
       type: String,
       default: '9999'
@@ -48,7 +52,6 @@ export default {
   line-height: 1.6;
   padding: 0 0.4em;
   font-size: 20px;
-  border-radius: 0.8em;
   background: #f44;
   color: #fff;
   text-align: center;
