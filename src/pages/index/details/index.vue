@@ -6,7 +6,7 @@
     </div>
     <div class="details-tab-selected">
 
-      <block v-if="tab1.selectedId === 'goods'">
+      <section class="animated" :class="{'zoomIn' : tab1.selectedId === 'goods'}">
         <!-- 轮播图 -->
         <slideshow
         :imgUrls="slideList"
@@ -56,13 +56,13 @@
             <div class="zan-cell__ft"></div>
           </div>
         </div>
-      </block>
-      <block v-else-if="tab1.selectedId === 'details'">
+      </section>
+      <section class="animated" :class="{'zoomIn' : tab1.selectedId === 'details'}">
         详情
-      </block>
-      <block v-else>
+      </section>
+      <section class="animated" :class="{'zoomIn' : tab1.selectedId === 'comment'}">
         评论
-      </block>
+      </section>
     </div>
 
     <!-- 底部option -->
@@ -247,6 +247,7 @@ export default {
 
 <style lang="less" scoped>
 @import url("~@/styles/color.less");
+@import url("~@/styles/animate.less");
 .details{
   margin-bottom: 60px;
   margin-top: 50px;
@@ -355,4 +356,8 @@ export default {
     }
   }
 }
+section {
+  display: none;
+}
+
 </style>

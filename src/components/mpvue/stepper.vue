@@ -102,5 +102,11 @@
   }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+.zan-stepper--small .zan-stepper__text {
+width:72rpx;
+line-height:54rpx;
+height:54rpx;
+}
+
 </style>

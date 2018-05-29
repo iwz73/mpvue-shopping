@@ -6,8 +6,6 @@ app.$mount()
 
 export default {
   config: {
-    navigationBarTitleText: '详情',
-    enablePullDownRefresh: true,
-    backgroundColorTop: '#d91f2f'
+    navigationBarTitleText: '选择收货地址'
   }
 }

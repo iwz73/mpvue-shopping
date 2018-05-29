@@ -1,3 +1,4 @@
+const baseURL = 'http://5d812878.ngrok.io/'
 function formatNumber (n) {
   const str = n.toString()
   return str[1] ? str : `0${str}`
@@ -24,8 +25,31 @@ export const showToast = (text) => {
     duration: 2000
   })
 }
+export const ajax = {
+  git (url, params) {
+  },
+  post (url, params) {
+    return new Promise((resolve, reject) => {
+      wx.request({
+        url: `${baseURL}${url}`,
+        data: params,
+        method: 'POST',
+        header: {
+          'Content-Type': 'application/json'
+        },
+        success (res) {
+          resolve(res)
+        },
+        fail (res) {
+          reject(res)
+        }
+      })
+    })
+  }
+}
 export default {
   formatNumber,
   formatTime,
-  showToast
+  showToast,
+  ajax
 }

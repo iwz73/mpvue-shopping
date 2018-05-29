@@ -1,13 +1,14 @@
 <template>
   <div class="home">
-    <slideshow></slideshow>
+    <slideshow
+    :imgUrls="relCarousels"
+    ></slideshow>
     <!-- <badge></badge> -->
     <div class="enter-items">
-      <div class="enter-item" v-for="(item, index) in items" :key="index">
+      <div class="enter-item" v-for="(item, index) in sCategories" :key="index">
         <enter
-        :text="item.text"
-        :imgUrl="item.imgUrl"
-        :content="item.content"
+        :text="item.name"
+        :imgUrl="item.icon1"
         ></enter>
       </div>
     </div>
@@ -39,7 +40,7 @@
 </template>
 
 <script>
-import { showToast } from '@/utils/index'
+import { showToast, ajax } from '@/utils/index'
 import slideshow from '@/components/wechat/swiper-slideshow'
 import across from '@/components/wechat/swiper-across'
 import badge from '@/components/mpvue/badge'
@@ -132,7 +133,9 @@ export default {
           subhead: '2018春季新款复古绣花网纱刺',
           title: '2018春季新款复古绣花网纱刺'
         }
-      ]
+      ],
+      relCarousels: [],
+      sCategories: []
     }
   },
 
@@ -144,12 +147,29 @@ export default {
     cardRecommend,
     cardShop
   },
-
+  mounted () {
+    this.homeInit()
+  },
   methods: {
     handleEnterClick (index) {
       wx.navigateTo({
         url: 'details/main'
       })
+    },
+    homeInit () {
+      const postData = JSON.stringify({token: 'string'})
+      console.log(postData)
+      ajax.post('store/api/index', postData)
+        .then((res) => {
+          if (res.data.code === 0) {
+            const {relCarousels, relIndexProducts, relRecommends, sCategories} = res.data.data
+            console.log(relCarousels, relIndexProducts, relRecommends, sCategories)
+            this.relCarousels = relCarousels
+            this.sCategories = sCategories
+          } else {
+            showToast(res.errMsg)
+          }
+        })
     }
   },
   created () {
