@@ -17,11 +17,11 @@ export default {
       'pages/index/main',
       'pages/topic/main',
       'pages/cart/main',
-      'pages/index/details/main',
+      '^pages/index/details/main',
       'pages/center/main',
       'pages/address/main',
       'pages/address_select/main',
-      '^pages/new_order/main'
+      'pages/new_order/main'
     ],
     window: {
       backgroundTextStyle: 'dark',

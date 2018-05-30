@@ -12,7 +12,7 @@
       >
         <div v-for="(item, index) in imgUrls" :key="index">
           <swiper-item>
-            <image :mode="mode" :src="item.path" class="slide-image" @load="imageLoad" />
+            <image :mode="mode" :src="item" class="slide-image" @load="imageLoad" />
           </swiper-item>
         </div>
       </swiper>

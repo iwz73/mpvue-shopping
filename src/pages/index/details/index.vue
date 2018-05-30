@@ -61,7 +61,18 @@
         详情
       </section>
       <section class="animated" :class="{'zoomIn' : tab1.selectedId === 'comment'}">
-        评论
+        <div class="zan-panel">
+          <div class="zan-cell">
+            <div class="zan-cell__bd">
+              <div class="zan-cell__user">
+                <span>墨刀用户</span>
+                <span class="comment-time">2017.04.05</span>
+              </div>
+              <div class="zan-cell__text">如果你无法简洁的表达你的想法，那只说明你还不够了解它。如果你无法简洁的表达你的想法，那只说明你还不够了解它。如果你无法简洁的表达你的想法，那只说明你还不够了解它。</div>
+              <div class="zan-cell__desc">颜色：自由组合；尺码175/M</div>
+            </div>
+          </div>
+        </div>
       </section>
     </div>
 
@@ -358,6 +369,7 @@ export default {
 }
 section {
   display: none;
+  width: 100vw;
 }
 
 </style>
