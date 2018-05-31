@@ -48,7 +48,7 @@ export default {
     imageLoad (e) {
       const res = wx.getSystemInfoSync()
       const ratio = e.target.width / e.target.height
-      console.log(e)
+      // console.log(e)
       this.bannerHeight = res.windowWidth / ratio
     },
     swiperChange (e) {

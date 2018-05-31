@@ -28,8 +28,8 @@ export default {
       default: '2018春季新款复古绣花网纱刺'
     },
     subhead: {
-      type: String,
-      default: '绣金线连衣裙女中长款连体裙绣金线连衣裙女中长款连体裙'
+      type: String
+      // default: '绣金线连衣裙女中长款连体裙绣金线连衣裙女中长款连体裙'
     }
   }
 }

@@ -1,10 +1,10 @@
 <template>
   <div class="scroll-list">
     <scroll-view class="scroll-view_H" :scroll-x="scrollX">
-      <div class="content"  v-for="(item, index) in list" :key="index" @click="handleClick(index)">
+      <div class="content"  v-for="(item, index) in list" :key="item.id" @click="handleClick(index)">
         <h5 class="title">{{item.title}}</h5>
         <span class="subhead">{{item.subhead}}</span>
-        <img :src="item.imgUrl" alt="">
+        <img :src="item.imgUrl" alt="" mode="aspectFill" >
       </div>
     </scroll-view>
   </div>
@@ -26,7 +26,7 @@ export default {
     }
   },
   mounted () {
-    console.log(this.list)
+    // console.log(this.list)
   },
   methods: {
     handleClick (index) {
@@ -50,10 +50,14 @@ export default {
   height: 100px;
   width: 100px;
   margin: 10px;
+  padding-bottom: 10px;
   background: #fff;
   overflow: hidden;
   h5{
-    text-align: center;
+    text-align:center;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
   }
   .subhead{
     display: block;
@@ -62,8 +66,8 @@ export default {
   }
   img{
     display: block;
-    height: 45px;
     width: 90px;
+    max-height: 80px;
     margin:0 auto;
     
   }

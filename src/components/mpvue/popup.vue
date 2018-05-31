@@ -1,13 +1,13 @@
 <template>
   <div class="popup">
-  <div class="popup-example--bottom zan-popup zan-popup--bottom" :class="{ 'zan-popup--show' : showPopup }">
+    <div class="popup-example--bottom zan-popup zan-popup--bottom" :class="{ 'zan-popup--show' : showPopup }">
       <div class="zan-popup__mask" @click="togglePopup"></div>
       <div class="zan-popup__container">
         <slot></slot>
         <button class="zan-btn zan-btn--danger popup-border--none" @click="handleAffirm">{{ skip ? '下一步':'确定' }}</button>
       </div>
     </div>
-    </div>
+  </div>
 </template>
 
 <script>
@@ -26,7 +26,8 @@ export default {
     },
     popupData: {
       type: Object
-    }
+    },
+    popupPicture: String
   },
   methods: {
     togglePopup () {

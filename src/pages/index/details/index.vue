@@ -6,7 +6,7 @@
     </div>
     <div class="details-tab-selected">
 
-      <section class="animated" :class="{'zoomIn' : tab1.selectedId === 'goods'}">
+      <section class="animated productinfo" :class="{'zoomIn' : tab1.selectedId === 'goods'}">
         <!-- 轮播图 -->
         <slideshow
         :imgUrls="slideList"
@@ -14,14 +14,14 @@
         <!-- info -->
         <div class="details-info">
           <div class="info-main">
-            <div class="info-title">【25号10点限时限量9.9元秒杀】张大一服装店美国进口，奥巴马审核</div>
+            <div class="info-title">{{productinfoList.name}}</div>
             <enter
               v-bind="stare"
             >
             </enter>
           </div>
           <div class="info-price">
-            <span>￥139</span>
+            <span>￥{{productinfoList.price}}</span>
             <badge
             v-bind="styles"
             ></badge>
@@ -57,8 +57,14 @@
           </div>
         </div>
       </section>
-      <section class="animated" :class="{'zoomIn' : tab1.selectedId === 'details'}">
-        详情
+      <section class="animated productDetails" :class="{'zoomIn' : tab1.selectedId === 'details'}">
+        <block v-for="(item, index) in detailsLsit" :key="index">
+          <img v-if="item.type === 1" :src="item.path" mode="widthFix" />
+          <video 
+          v-else
+          :src="item.path"
+          ></video>
+        </block>
       </section>
       <section class="animated" :class="{'zoomIn' : tab1.selectedId === 'comment'}">
         <div class="zan-panel">
@@ -95,33 +101,8 @@
     </div>
     <!-- popup -->
     <popup
-    @togglePopup="togglePopup"
-    @handleAffirm="handleAffirm"
-    :showPopup="showPopup"
     :popupData="popupData"
-    :skip="skip"
     >
-      <div class="imgthumb">
-        <img :src="popupData.imgUrl" alt="">
-      </div>
-      <div class="commodity">
-        <div class="commodity-info">
-          <span class="text-overflow">【25号10点限时限量9.9元秒杀】张大一服装店美国进口，奥巴马审核</span>
-          <em>￥139.00</em>
-        </div>
-        <div class="popup-footer">
-          <div class="footer-left">
-            <span>购买数量</span>
-            <em>剩余{{popupData.stepper1.max}}件</em>
-          </div>
-          <stepper
-          v-bind="popupData.stepper1"
-          size="small"
-          componentId="stepper1"
-          @handleZanStepperChange="handleZanStepperChange"
-          ></stepper>
-        </div>
-      </div>
     </popup>
   </div>
 </template>
@@ -129,15 +110,25 @@
 <script>
 import slideshow from '@/components/wechat/swiper-slideshow'
 import badge from '@/components/mpvue/badge'
-import popup from '@/components/mpvue/popup'
+import popup from '@/components/mpvue/popup-cart'
 import stepper from '@/components/mpvue/stepper'
 import capsule from '@/components/mpvue/capsule'
 import enter from '@/components/mpvue/enter'
 import zanTab from '@/components/mpvue/tab'
+import { productinfo, productDetails, productAppraise } from '@/api/details'
 // import wx from 'wx'
 export default {
   data () {
     return {
+      // 商品
+      productinfoList: [],
+      // 详情
+      detailsLsit: [],
+      // 评价
+      appraiseList: [],
+      popupData: {},
+      // 首页 query
+      query: '',
       stare: {
         imgUrl: '/static/images/share.png',
         text: '分享'
@@ -150,24 +141,25 @@ export default {
         content: '买一送一',
         borderRadius: 'none'
       },
-      slideList: [
-        'http://p5za7ep72.bkt.clouddn.com/TB21zOEbeySBuNjy1zdXXXPxFXa-370627083.jpg_790x10000Q50s50.jpg_.webp',
-        'http://p5za7ep72.bkt.clouddn.com/TB2M965pxWYBuNjy1zkXXXGGpXa-370627083.jpg_790x10000Q50s50.jpg_.webp',
-        'http://p5za7ep72.bkt.clouddn.com/TB2czaBbh1YBuNjy1zcXXbNcXXa-370627083.jpg_790x10000Q50s50.jpg_.webp'
-      ],
+      // slideList: [
+      //   'http://p5za7ep72.bkt.clouddn.com/TB21zOEbeySBuNjy1zdXXXPxFXa-370627083.jpg_790x10000Q50s50.jpg_.webp',
+      //   'http://p5za7ep72.bkt.clouddn.com/TB2M965pxWYBuNjy1zkXXXGGpXa-370627083.jpg_790x10000Q50s50.jpg_.webp',
+      //   'http://p5za7ep72.bkt.clouddn.com/TB2czaBbh1YBuNjy1zcXXbNcXXa-370627083.jpg_790x10000Q50s50.jpg_.webp'
+      // ],
       badgeList: {
         content: '买一送一'
       },
       showPopup: false,
       skip: true,
-      popupData: {
-        imgUrl: 'http://suo.im/5qYDOH',
-        stepper1: {
-          stepper: 10,
-          min: 1,
-          max: 10
-        }
-      },
+      // popupData: {
+      //   imgUrl: 'http://suo.im/5qYDOH',
+      //   stepper1: {
+      //     stepper: 10,
+      //     min: 1,
+      //     max: 10
+      //   },
+      //   productinfoList: []
+      // },
       stepper1: {
         stepper: 10,
         min: 1,
@@ -243,15 +235,78 @@ export default {
       console.log(e)
       const {componentId, selectedId} = e
       this[componentId].selectedId = selectedId
+    },
+    Productinfo () {
+      const postData = JSON.stringify({
+        id: this.query.id,
+        token: 'string'
+      })
+      productinfo(postData)
+        .then(response => {
+          const popup = this.popupData
+          const data = response.data
+          this.productinfoList = data
+          popup.stepper = {
+            stepper: 1,
+            min: 1,
+            max: data.stock
+          }
+          popup.img = data.attr.color[0].img
+          popup.price = data.price
+          popup.stock = data.stock
+        })
+    },
+    ProductDetails () {
+      const postData = JSON.stringify({
+        id: this.query.id,
+        token: 'string'
+      })
+      productDetails(postData)
+        .then(response => {
+          this.detailsLsit = response.data
+        })
+    },
+    ProductAppraise () {
+      const postData = JSON.stringify({
+        id: this.query.id,
+        token: 'string'
+      })
+      productAppraise(postData)
+        .then(response => {
+          this.appraiseList = response.data
+        })
     }
   },
-  mounted () {
+  beforeMount () {
+    this.query = this.$root.$mp.query
     this.capsuleData.onclick = this.handleCapsu
+    this.Productinfo()
+    this.ProductDetails()
+    this.ProductAppraise()
+  },
+  mounted () {
+
   },
   created () {
     // 调用应用实例的方法获取全局数据
   },
   onPullDownRefresh () {
+  },
+  computed: {
+    slideList () {
+      const resourceCarousels = this.productinfoList.resourceCarousels
+      const Carousels = []
+      if (!resourceCarousels) return []
+      resourceCarousels.forEach(element => {
+        Carousels.push(element.path)
+      })
+      return Carousels
+    },
+    popupPicture () {
+      if (!this.productinfoList.attr) return ''
+      const picture = this.productinfoList.attr.color[0].img
+      return picture
+    }
   }
 }
 </script>
@@ -371,5 +426,16 @@ section {
   display: none;
   width: 100vw;
 }
-
+.productDetails{
+  img{
+    width: 100%;
+  }
+}
+.popup-example--bottom .zan-popup__container {
+  left: 0;
+  right: 0;
+}
+.popup-border--none{
+  border-radius: 0;
+}
 </style>
