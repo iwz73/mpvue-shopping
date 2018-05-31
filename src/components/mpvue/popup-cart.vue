@@ -11,6 +11,12 @@
           <span class="text-overflow">{{popupData.name}}</span>
           <em>￥{{popupData.price}}</em>
         </div>
+        <div class="sku">
+          <div>
+            <span></span>
+            
+          </div>
+        </div>
         <div class="popup-footer">
           <div class="footer-left">
             <span>购买数量</span>
@@ -38,11 +44,11 @@ export default {
   props: {
     showPopup: {
       type: Boolean,
-      default: false
+      default: true
     },
     popupData: Object
   },
-  comments: {
+  components: {
     stepper
   },
   methods: {
@@ -59,11 +65,48 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@import url("~@/styles/color.less");
+@import url("~@/styles/animate.less");
 .popup-example--bottom .zan-popup__container {
   left: 0;
   right: 0;
 }
 .popup-border--none{
   border-radius: 0;
+}
+.imgthumb{
+  position: absolute;
+  top: -20px;
+  left: 20px;
+  z-index: 9999;
+  border-radius: 6px;
+  border: 1px solid @borderColor;
+  overflow: hidden;
+  img{
+    height: 80px;
+    width: 80px;
+  }
+}
+.popup-footer{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.commodity{
+  display: flex;
+  flex-direction: column;
+  .commodity-info{
+    display: flex;
+    flex-direction: column;
+    padding-left: 120px;
+    height: 75px;
+    border-bottom: 1px solid @borderColor;
+    span{
+      width:240px;
+    }
+    em{
+      color: @minColor;
+    }
+  }
 }
 </style>

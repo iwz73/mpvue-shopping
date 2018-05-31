@@ -251,9 +251,11 @@ export default {
             min: 1,
             max: data.stock
           }
+          popup.name = data.name
           popup.img = data.attr.color[0].img
           popup.price = data.price
           popup.stock = data.stock
+          console.log(this.popupData)
         })
     },
     ProductDetails () {
@@ -361,25 +363,6 @@ export default {
   margin-top: 10px;
 
 }
-.imgthumb{
-  position: absolute;
-  top: -20px;
-  left: 20px;
-  z-index: 9999;
-  border-radius: 6px;
-  border: 1px solid @borderColor;
-  overflow: hidden;
-  img{
-    height: 80px;
-    width: 80px;
-  }
-}
-.popup-footer{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .details-action{
   position: fixed;
   bottom: 0;
@@ -405,23 +388,7 @@ export default {
     color: #ffffff;
   }
 }
-.commodity{
-  display: flex;
-  flex-direction: column;
-  .commodity-info{
-    display: flex;
-    flex-direction: column;
-    padding-left: 120px;
-    height: 75px;
-    border-bottom: 1px solid @borderColor;
-    span{
-      width:240px;
-    }
-    em{
-      color: @minColor;
-    }
-  }
-}
+
 section {
   display: none;
   width: 100vw;
@@ -430,12 +397,5 @@ section {
   img{
     width: 100%;
   }
-}
-.popup-example--bottom .zan-popup__container {
-  left: 0;
-  right: 0;
-}
-.popup-border--none{
-  border-radius: 0;
 }
 </style>
