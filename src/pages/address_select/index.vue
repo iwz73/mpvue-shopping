@@ -1,77 +1,89 @@
 <template>
   <div class="address-select">
     <div class="zan-panel">
-      <div class="zan-cell" v-for="(item, index) in cellList" :key="index">
+      <div class="zan-cell" v-for="(item, index) in cellList" :key="index" @click="handleChecked(e,index)" >
         <div class="zan-cell__bd">
           <div class="zan-cell__text cell__bd___top">
-            <div class="">{{item.name}}</div>
-            <div class="">{{item.call}}</div>
+            <div class="">{{item.uname}}</div>
+            <div class="">{{item.phone}}</div>
           </div>
           <div class="zan-cell__desc">
-            {{item.address}}
+           <span class="default-address zan-c-red" v-if="index === 0">[默认地址]</span> {{item.province + item.city + item.area + item.adress }}
           </div>
         </div>
-        <div class="zan-cell__ft" @click="handleChecked(e,index)"> 
-          <icon class="weui-icon-checkbox_circle" type="circle" size="23" v-if="!item.checked"></icon>
-          <icon class="weui-icon-checkbox_success" type="success" size="23" v-if="item.checked"></icon>
+        <div class="zan-cell__ft" > 
+          <i class="zan-icon zan-icon-checked"  v-if="checked === index"></i>
+          <i class="zan-icon zan-icon-check"  v-if="checked !== index"></i>
         </div>
       </div>
     </div>
-    <a>--新增地址--</a>
+    <div class="adderss-footer">
+      <div>--管理--</div>
+      <div @click="handleTo">--新增地址--</div>
+    </div>
+    
     <button class="address-save zan-btn zan-btn--danger">确定</button>
   </div>
 </template>
 
 <script>
+import wx from 'wx'
+import { addressList } from '@/api/address'
+
 export default {
   data () {
     return {
-      cellList: [
-        {
-          name: '南墙先生',
-          call: '18390202000',
-          address: '福建省厦门市思明区莲前街道软件园二期望海路',
-          checked: true
-        }, {
-          name: '南墙先生',
-          call: '18390202000',
-          address: '福建省厦门市思明区莲前街道软件园二期望海路',
-          checked: false
-        }, {
-          name: '南墙先生',
-          call: '18390202000',
-          address: '福建省厦门市思明区莲前街道软件园二期望海路',
-          checked: false
-        }
-      ]
+      cellList: [],
+      checked: 0
     }
   },
   methods: {
     handleChecked (e, key) {
-      if (this.cellList[key].checked) return
-      this.cellList.forEach((e, i) => {
-        if (i !== key)e.checked = false
+      if (this.checked === key) return
+      this.checked = key
+    },
+    handleTo () {
+      wx.navigateTo({
+        url: `/pages/address/main`
       })
-      this.cellList[key].checked = !this.cellList[key].checked
+    },
+    AddressList () {
+      const postData = JSON.stringify({
+        id: 1,
+        token: 'string'
+      })
+      addressList(postData)
+        .then(response => {
+          this.cellList = response.data
+        })
     }
+  },
+  mounted () {
+    this.AddressList()
   }
 }
 </script>
 
 <style lang="less" scoped>
 @import url("~@/styles/color.less");
-.address-select a{
+.adderss-footer{
+  margin-bottom: 45px;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+ div {
   margin: 10px;
-  float: right;
-  color: #3f51b5;
+  color:#3f51b5;
 }
+}
+
 .cell__bd___top{
   display: flex;
   justify-content: space-between;
   padding-right: 20px;
 }
 .address-save{
-  position: absolute;
+  position: fixed;
   border:none;
   border-radius: 0;
   bottom: 0;
@@ -79,4 +91,13 @@ export default {
   right: 0;
   background: @bntBackgroundColor;
 }
+.zan-cell__ft{
+  i{
+    font-size: 20px;
+  }
+  .zan-icon-checked{
+  color: @bntBackgroundColor;
+}
+}
+
 </style>

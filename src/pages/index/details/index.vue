@@ -102,6 +102,7 @@
     <!-- popup -->
     <popup
     :popupData="popupData"
+    @handleZanStepperChange="handleZanStepperChange"
     >
     </popup>
   </div>
@@ -222,8 +223,10 @@ export default {
       this.showPopup = !this.showPopup
     },
     handleZanStepperChange (e) {
-      const {componentId, stepper} = e
-      this.popupData[componentId].stepper = stepper
+      // const {componentId, stepper} = e
+      // this.popupData[componentId].stepper = stepper
+      this.popupData.stepper.stepper = e
+      console.log(e)
     },
     handleAffirm (s) {
       console.log(s)
@@ -238,7 +241,7 @@ export default {
     },
     Productinfo () {
       const postData = JSON.stringify({
-        id: this.query.id,
+        id: 1,
         token: 'string'
       })
       productinfo(postData)
@@ -248,7 +251,7 @@ export default {
           this.productinfoList = data
           popup.stepper = {
             stepper: 1,
-            min: 1,
+            min: 2,
             max: data.stock
           }
           popup.name = data.name
@@ -260,7 +263,7 @@ export default {
     },
     ProductDetails () {
       const postData = JSON.stringify({
-        id: this.query.id,
+        id: 1,
         token: 'string'
       })
       productDetails(postData)

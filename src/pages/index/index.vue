@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import wx from 'wx'
 import { showToast } from '@/utils/index'
 import { index } from '@/api/index'
 import slideshow from '@/components/wechat/swiper-slideshow'

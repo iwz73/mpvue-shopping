@@ -40,6 +40,9 @@
 import stepper from '@/components/mpvue/stepper'
 export default {
   data () {
+    return {
+      stepper: {}
+    }
   },
   props: {
     showPopup: {
@@ -59,6 +62,8 @@ export default {
     handleZanStepperChange (e) {
       const {componentId, stepper} = e
       this.popupData[componentId].stepper = stepper
+      console.log(this.popupData[componentId].stepper)
+      this.$emit('handleZanStepperChange', componentId, stepper)
     }
   }
 }
