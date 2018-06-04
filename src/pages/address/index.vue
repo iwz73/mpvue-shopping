@@ -105,6 +105,13 @@ export default {
           }
         })
     }
+  },
+  mounted () {
+    const options = this.$root.$mp.query.option
+    Object.assign(this.$data, this.$options.data())
+    if (options) this.adderrData = JSON.parse(options)
+    console.log(options, this.adderrData)
+    // console.log(this.$root.$mp)
   }
 }
 </script>

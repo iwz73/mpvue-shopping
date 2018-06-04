@@ -22,3 +22,14 @@ export function addAddress (data) {
       })
   })
 }
+export function delAddress (data) {
+  return new Promise((resolve, reject) => {
+    ajax.post('store/api/delAddress', data)
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(error => {
+        reject(error)
+      })
+  })
+}

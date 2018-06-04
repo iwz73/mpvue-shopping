@@ -60,6 +60,7 @@ export default {
   },
   mounted () {
     this.AddressList()
+    console.log(this.$data, this.$options.data())
   }
 }
 </script>

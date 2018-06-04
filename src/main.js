@@ -20,8 +20,9 @@ export default {
       'pages/index/details/main',
       'pages/center/main',
       'pages/address/main',
-      '^pages/address_select/main',
-      'pages/new_order/main'
+      'pages/address_select/main',
+      'pages/new_order/main',
+      '^pages/address_admin/main'
     ],
     window: {
       backgroundTextStyle: 'dark',
