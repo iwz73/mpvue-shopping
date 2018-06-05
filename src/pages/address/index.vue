@@ -19,6 +19,7 @@
 
 <script>
 import ZanField from '@/components/mpvue/field'
+import store from '@/store'
 import { addAddress } from '@/api/address'
 import { showToast } from '@/utils/index'
 export default {
@@ -110,8 +111,7 @@ export default {
     const options = this.$root.$mp.query.option
     Object.assign(this.$data, this.$options.data())
     if (options) this.adderrData = JSON.parse(options)
-    console.log(options, this.adderrData)
-    // console.log(this.$root.$mp)
+    console.log(store)
   }
 }
 </script>

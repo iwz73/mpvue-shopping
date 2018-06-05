@@ -31,6 +31,7 @@
 
 <script>
 import wx from 'wx'
+import store from '@/store'
 import { showToast } from '@/utils/index'
 import { addressList, delAddress } from '@/api/address'
 export default {
@@ -96,7 +97,8 @@ export default {
   },
   mounted () {
     this.AddressList()
-    console.log(this.$data, this.$options.data())
+    // console.log(this.$data, this.$options.data())
+    console.log(store.state.adderss.a)
   }
 }
 </script>
