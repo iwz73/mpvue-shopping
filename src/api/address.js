@@ -33,3 +33,14 @@ export function delAddress (data) {
       })
   })
 }
+export function setDefaultAddress (data) {
+  return new Promise((resolve, reject) => {
+    ajax.post('store/api/setDefaultAddress', data)
+      .then(response => {
+        resolve(response.data)
+      })
+      .catch(error => {
+        reject(error)
+      })
+  })
+}

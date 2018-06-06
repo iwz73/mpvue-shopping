@@ -21,7 +21,7 @@
 import ZanField from '@/components/mpvue/field'
 import store from '@/store'
 import { addAddress } from '@/api/address'
-import { showToast } from '@/utils/index'
+import { showToast, isPhoneNum } from '@/utils/index'
 export default {
   components: {
     ZanField
@@ -91,6 +91,10 @@ export default {
       })
       if (fix.length > 0) {
         showToast(`请填写${this.inputDeploy[fix[0]].placeholder}`)
+        return
+      }
+      if (!isPhoneNum(this.adderrData.phone)) {
+        showToast('请填写正确的手机号码')
         return
       }
       this.AddAddress(JSON.stringify(this.adderrData))

@@ -1,6 +1,6 @@
 <template>
   <div class="address-select">
-    <div class="zan-panel animated"  v-for="(item, index) in cellList" :key="item.id" :class="{ bounceOutRight : Del === index}">
+    <div class="zan-panel animated"  v-for="(item, index) in cellList" :key="item.id" :class="{ bounceOutRight : Del === item.id}">
       <div class="zan-cell">
         <div class="zan-cell__bd">
           <div class="zan-cell__text cell__bd___top">
@@ -12,7 +12,7 @@
           </div>
           <div class="cell_bt">
             <div class="cell_bt__left">
-              <span @click="handleChecked(e, index)">
+              <span @click="handleDefault(item.id, index)">
                 <i class="zan-icon zan-icon-checked"  v-if="checked === index"></i>
                 <i class="zan-icon zan-icon-check"  v-if="checked !== index"></i>
               </span>
@@ -33,7 +33,7 @@
 import wx from 'wx'
 import store from '@/store'
 import { showToast } from '@/utils/index'
-import { addressList, delAddress } from '@/api/address'
+import { addressList, delAddress, setDefaultAddress } from '@/api/address'
 export default {
   data () {
     return {
@@ -43,11 +43,9 @@ export default {
     }
   },
   methods: {
-    handleChecked (e, key) {
-      console.log(key)
+    handleDefault (id, key) {
       if (this.checked === key) return
-      this.checked = key
-      console.log(this.checked)
+      this.SetDefaultAddress(id, key)
     },
     handleDel (index) {
       const id = this.cellList[index].id
@@ -79,19 +77,28 @@ export default {
         .then(response => {
           if (response.code === 0) {
             showToast('删除成功')
-            this.Del = index
+            this.Del = id
             setTimeout(() => {
               this.cellList.some((e, i) => {
                 if (e.id === id) {
-                  console.log(e, i, id)
-                  console.log(this.cellList)
                   this.cellList.splice(i, 1)
-                  console.info(this.cellList)
+                  console.info(this.Del)
                   return true
                 }
               })
-            }, 1000)
+            }, 750)
           }
+        })
+    },
+    SetDefaultAddress (id, key) {
+      const postData = JSON.stringify({
+        id,
+        token: 'string'
+      })
+      setDefaultAddress(postData)
+        .then(response => {
+          showToast(response.data)
+          this.checked = key
         })
     }
   },

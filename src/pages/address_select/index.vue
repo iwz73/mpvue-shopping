@@ -18,7 +18,7 @@
       </div>
     </div>
     <div class="adderss-footer">
-      <div>--管理--</div>
+      <div @click="handleToAdmin">--管理--</div>
       <div @click="handleTo">--新增地址--</div>
     </div>
     
@@ -47,6 +47,11 @@ export default {
         url: `/pages/address/main`
       })
     },
+    handleToAdmin () {
+      wx.navigateTo({
+        url: `/pages/address_admin/main`
+      })
+    },
     AddressList () {
       const postData = JSON.stringify({
         id: 1,
@@ -58,7 +63,7 @@ export default {
         })
     }
   },
-  mounted () {
+  onShow () {
     this.AddressList()
     console.log(this.$data, this.$options.data())
   }
