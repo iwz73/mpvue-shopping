@@ -17,13 +17,14 @@ export default {
       'pages/index/main',
       'pages/topic/main',
       'pages/cart/main',
-      'pages/index/details/main',
+      '^pages/details/main',
       'pages/center/main',
       'pages/address/main',
       'pages/address_select/main',
       'pages/new_order/main',
       'pages/address_admin/main',
-      '^pages/comment/main'
+      'pages/comment/main',
+      'pages/order_my/main'
     ],
     window: {
       backgroundTextStyle: 'dark',

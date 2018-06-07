@@ -226,7 +226,7 @@ export default {
       // const {componentId, stepper} = e
       // this.popupData[componentId].stepper = stepper
       this.popupData.stepper.stepper = e
-      console.log(e)
+      console.log('master0-0~~', e, this.popupData)
     },
     handleAffirm (s) {
       console.log(s)

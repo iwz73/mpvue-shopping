@@ -18,7 +18,7 @@
       :data-max="max"
       :value="stepper"
       :disabled="min >= max"
-      @blur="_handleZanStepperBlur"
+      @change="_handleZanStepperBlur"
     />
     <div
       class="zan-stepper__plus"
@@ -95,17 +95,8 @@
       callback (componentId, stepper) {
         stepper = +stepper
         var e = {componentId, stepper}
-        console.log(this.min)
-        this.stepper = stepper
+        console.info('[zan:stepper:change]', e)
         this.$emit('handleZanStepperChange', e)
-      }
-    },
-    mounted () {
-      console.log(this.minxxx)
-    },
-    computed: {
-      minxxx () {
-        return this.min
       }
     }
   }

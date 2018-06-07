@@ -64,7 +64,7 @@ export default {
       const {componentId, stepper} = e
       this.popupData[componentId].stepper = stepper
       console.log(this.popupData[componentId].stepper)
-      // this.$emit('handleZanStepperChange', componentId, stepper)
+      this.$emit('handleZanStepperChange', componentId, stepper)
     }
   },
   mounted () {

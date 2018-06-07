@@ -162,7 +162,7 @@ export default {
     handleEnterClick (index) {
       const id = this.relIndexProducts[index].productid
       wx.navigateTo({
-        url: `details/main?id=${id}`
+        url: `../details/main?id=${id}`
       })
     },
     homeInit () {
