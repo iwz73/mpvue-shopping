@@ -16,15 +16,16 @@ export default {
     pages: [
       'pages/index/main',
       'pages/topic/main',
-      'pages/cart/main',
-      '^pages/details/main',
+      '^pages/cart/main',
+      'pages/details/main',
       'pages/center/main',
       'pages/address/main',
       'pages/address_select/main',
       'pages/new_order/main',
       'pages/address_admin/main',
       'pages/comment/main',
-      'pages/order_my/main'
+      'pages/order_my/main',
+      'pages/classify/main'
     ],
     window: {
       backgroundTextStyle: 'dark',

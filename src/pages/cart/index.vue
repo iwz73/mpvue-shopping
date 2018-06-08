@@ -1,8 +1,9 @@
 <template>
     <div>
-      <div class="cart-list">
+      <CartTop></CartTop>
+      <div class="zan-panel cart-list">
         <block v-for="(item, index) in cardCartList" :key="index">
-          <cardCart
+          <!-- <cardCart
           @handleChecked="handleChecked"
           @handlePlus="handlePlus"
           @handleMinus="handleMinus"
@@ -11,22 +12,25 @@
           :quantity="item.quantity"
           :price="item.price"
           :checked="item.checked"
-          ></cardCart>
+          ></cardCart> -->
+          <cardCart></cardCart>
         </block>
       </div>
-      <action
+      <CartAction
       @handleAll="handleAll"
       :sum="sum"
       :dues="dues"
       :checkedLength="checkedLength"
       :checked="checkedAll"
-      ></action>
+      ></CartAction>
   </div>
 </template>
 
 <script>
-import cardCart from '@/components/wechat/card-shopping-cart'
-import action from '@/components/mpvue/action-cart'
+import cardCart from '@/components/template/cart-shopping-cart'
+import CartTop from '@/components/template/cart-shopping-top'
+import CartAction from '@/components/template/cart-shopping-action'
+import sideslipList from '@/components/mpvue/sideslip-list'
 export default {
   data () {
     return {
@@ -54,7 +58,9 @@ export default {
 
   components: {
     cardCart,
-    action
+    CartAction,
+    sideslipList,
+    CartTop
   },
   methods: {
     handleChecked (checked, index) {

@@ -1,21 +1,26 @@
 <template>
   <div class="action-cart">
     <div class="action-checked" @click="handleAll">
-        <icon class="checked-icon" type="circle" size="23" v-if="!checked"></icon>
-        <icon class="checked-icon" type="success" size="23" v-if="checked"></icon>
+        <i class="zan-cell__icon zan-icon zan-icon-check" v-if="!checked"></i>
+        <i class="zan-cell__icon zan-icon zan-icon-checked" v-else></i>
     </div>
     <div class="action-right">
       <div class="action-info">
-      <h3>总计（不含税）<span>￥{{sum}}</span></h3>
-      <span>商品税费￥{{dues}}</span>
+        <h3 class="zan-font-14 zan-font-bold">
+          总计
+          <span class="zan-font-10 zan-c-gray-dark">(不含税)</span>
+          ：<span>￥{{sum}}</span>
+        </h3>
+        <span class="zan-font-12 zan-c-gray-dark">商品税费￥{{dues}}</span>
       </div>
-      <div class="settle">结算（{{checkedLength}}）</div>
+      <div class="settle  zan-font-bold">结算<span class="zan-font-12">({{checkedLength}})</span></div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  name: 'CartAction',
   props: ['sum', 'dues', 'checkedLength', 'checked'],
   methods: {
     handleAll () {
@@ -29,41 +34,55 @@ export default {
 
 <style lang="less" scoped>
 @import url("~@/styles/color.less");
-
-.action-cart{
+.zan-cell__icon {
+  font-size: 20px;
+  padding: 0 15px;
+}
+.zan-icon-checked {
+  color:#38f;
+}
+.zan-icon-check {
+  color: @secondaryFontColor;
+}
+.action-cart {
   position: fixed;
   display: flex;
   bottom: 0;
   height:45px;
   width: 100vw;
   background: #ffffff;
-  .action-checked{
+  .action-checked {
     display: flex;
     align-items: center;
     justify-content: center;
-    .checked-icon{
+    .checked-icon {
       margin: 0 9.7px;
     }
   }
-  .action-right{
+  .action-right {
     flex: 1;
     display:flex;
     justify-content: flex-end;
-    .action-info{
+    .action-info {
       margin-right: 5px;
-      h3{
-        span{
+      h3 {
+        display: flex;
+        align-items: center;
+        span {
           color: @minColor;
         }
       }
     }
-    .settle{
+    .settle {
       width: 200rpx;
       text-align: center;
       line-height: 45px;
       background: @minColor;
       color: #ffffff;
       font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 }
