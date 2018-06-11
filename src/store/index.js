@@ -4,13 +4,32 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import details from './modules/details'
 import adderss from './modules/order_addres'
+import cart from './modules/cart'
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
   modules: {
     details,
-    adderss
+    adderss,
+    cart
+  },
+
+  state: {
+
+  },
+
+  mutations: {
+
+  },
+
+  actions: {
+
+  },
+
+  getters: {
+
   }
+
 })
 
 export default store

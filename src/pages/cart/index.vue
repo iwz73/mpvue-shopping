@@ -1,107 +1,89 @@
 <template>
     <div>
-      <CartTop></CartTop>
+      <CartTop
+      ></CartTop>
       <div class="zan-panel cart-list">
-        <block v-for="(item, index) in cardCartList" :key="index">
-          <!-- <cardCart
-          @handleChecked="handleChecked"
-          @handlePlus="handlePlus"
-          @handleMinus="handleMinus"
-          @handleCount="handleCount"
+        <block v-for="(item, index) in shoppingLsit" :key="index">
+          <cardCart
+          :cart="item"
           :index="index"
-          :quantity="item.quantity"
-          :price="item.price"
-          :checked="item.checked"
-          ></cardCart> -->
-          <cardCart></cardCart>
+          @handleSelect="handleSelect"
+          ></cardCart>
         </block>
       </div>
-      <CartAction
-      @handleAll="handleAll"
-      :sum="sum"
-      :dues="dues"
-      :checkedLength="checkedLength"
-      :checked="checkedAll"
-      ></CartAction>
+      <block v-if="shoppingLsit.length">
+        <CartAction
+        @handleAll="handleAll"
+        :sum="sum"
+        :dues="dues"
+        :checkedLength="checkedLength"
+        :checked="checkedAll"
+        ></CartAction>
+      </block>
+      <block v-else>
+        mmmmmmmmmmmm=-=mmmmmmmmmmmmmmmmmmmm
+      </block>
   </div>
 </template>
 
 <script>
-import cardCart from '@/components/template/cart-shopping-cart'
-import CartTop from '@/components/template/cart-shopping-top'
-import CartAction from '@/components/template/cart-shopping-action'
+import store from '@/store'
+import cardCart from '@/components/template/cart/cart-shopping-cart'
+import CartTop from '@/components/template/cart/cart-shopping-top'
+import CartAction from '@/components/template/cart/cart-shopping-action'
 import sideslipList from '@/components/mpvue/sideslip-list'
-export default {
-  data () {
-    return {
-      cardCartList: [
-        {
-          quantity: 1,
-          price: 999,
-          checked: false
-        }, {
-          quantity: 2,
-          price: 999,
-          checked: false
-        }, {
-          quantity: 3,
-          price: 999,
-          checked: false
-        }, {
-          quantity: 4,
-          price: 999,
-          checked: false
-        }
-      ]
-    }
-  },
+import { getShoppingList } from '@/api/cart'
 
+export default {
   components: {
     cardCart,
     CartAction,
     sideslipList,
     CartTop
   },
+  onShow () {
+    store.state.cart.cartAdmin = false
+  },
   methods: {
-    handleChecked (checked, index) {
-      this.cardCartList[index].checked = checked
-    },
-    handleCount (quantity, index) {
-      this.count(quantity, index)
-    },
-    handlePlus (quantity, index) {
-      this.count(quantity, index)
-    },
-    handleMinus (quantity, index) {
-      this.count(quantity, index)
-    },
     handleAll (checked) {
-      const list = this.cardCartList
+      const list = this.shoppingLsit
       list.forEach(e => {
-        e.checked = checked
+        e.select = checked
       })
-      this.cardCartList = list
+      store.commit('cart/init', list)
     },
-    count (n, i) {
-      this.cardCartList[i].quantity = n
+    GetShoppingList () {
+      const postData = JSON.stringify({token: 'string'})
+      getShoppingList(postData)
+        .then(response => {
+          const dataList = response.data
+          dataList.forEach(e => {
+            Object.assign(e, {select: false})
+          })
+          store.commit('cart/init', dataList)
+        })
     }
   },
   created () {
     // 调用应用实例的方法获取全局数据
+    this.GetShoppingList()
   },
   computed: {
+    shoppingLsit () {
+      return store.state.cart.cart
+    },
     sum () {
       let sum = 0
-      this.cardCartList.forEach(e => {
-        if (e.checked) {
-          sum += e.price * e.quantity
+      this.shoppingLsit.forEach(e => {
+        if (e.select) {
+          sum += e.price * e.sum
         }
       })
       return sum
     },
     checkedAll () {
-      let judge = this.cardCartList.find(e => {
-        return e.checked === false
+      let judge = this.shoppingLsit.find(e => {
+        return e.select === false
       })
       if (judge) {
         return false
@@ -110,8 +92,8 @@ export default {
       }
     },
     checkedLength () {
-      const size = this.cardCartList.filter(e => {
-        return e.checked
+      const size = this.shoppingLsit.filter(e => {
+        return e.select
       })
       return size.length
     }

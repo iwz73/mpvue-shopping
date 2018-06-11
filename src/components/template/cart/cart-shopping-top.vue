@@ -6,14 +6,28 @@
       <span>送至：广州天河区</span>
       <span class="zan-icon zan-icon-arrow"></span>
     </div>
-    <div>管理</div>
+    <div @click="cartAdmin">
+      {{cut?'取消':'管理'}}
+    </div>
   </div>
 </div>
 </template>
 
 <script>
+import store from '@/store'
 export default {
-  name: 'CartTop'
+  name: 'CartTop',
+  methods: {
+    cartAdmin () {
+      store.commit('cart/cartAdminCut')
+      this.cut = store.state.cart.cartAdmin
+    }
+  },
+  computed: {
+    cut () {
+      return store.state.cart.cartAdmin
+    }
+  }
 }
 </script>
 

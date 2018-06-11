@@ -5,20 +5,27 @@
         <i class="zan-cell__icon zan-icon zan-icon-checked" v-else></i>
     </div>
     <div class="action-right">
-      <div class="action-info">
-        <h3 class="zan-font-14 zan-font-bold">
-          总计
-          <span class="zan-font-10 zan-c-gray-dark">(不含税)</span>
-          ：<span>￥{{sum}}</span>
-        </h3>
-        <span class="zan-font-12 zan-c-gray-dark">商品税费￥{{dues}}</span>
-      </div>
-      <div class="settle  zan-font-bold">结算<span class="zan-font-12">({{checkedLength}})</span></div>
+      <block v-if="!cartAdmin">
+        <div class="action-info">
+          <h3 class="zan-font-14 zan-font-bold">
+            总计
+            <span class="zan-font-10 zan-c-gray-dark">(不含税)</span>
+            ：<span>￥{{sum}}</span>
+          </h3>
+          <span class="zan-font-12 zan-c-gray-dark">商品税费￥{{dues}}</span>
+        </div>
+        <div class="settle  zan-font-bold">结算<span class="zan-font-12">({{checkedLength}})</span></div>
+      </block>
+      <block v-else>
+        <div class="settle  zan-font-bold" @click="deleteCart">删除</div>
+      </block>
     </div>
   </div>
 </template>
 
 <script>
+import store from '@/store'
+
 export default {
   name: 'CartAction',
   props: ['sum', 'dues', 'checkedLength', 'checked'],
@@ -27,6 +34,14 @@ export default {
       this.checked = !this.checked
       console.log(this.checked)
       this.$emit('handleAll', this.checked)
+    },
+    deleteCart () {
+      store.commit('cart/deleteCartItem')
+    }
+  },
+  computed: {
+    cartAdmin () {
+      return store.state.cart.cartAdmin
     }
   }
 }
