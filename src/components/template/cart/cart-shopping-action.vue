@@ -12,7 +12,7 @@
             <span class="zan-font-10 zan-c-gray-dark">(不含税)</span>
             ：<span>￥{{sum}}</span>
           </h3>
-          <span class="zan-font-12 zan-c-gray-dark">商品税费￥{{dues}}</span>
+          <span class="zan-font-12 zan-c-gray-dark">商品税费￥{{sum /100}}</span>
         </div>
         <div class="settle  zan-font-bold">结算<span class="zan-font-12">({{checkedLength}})</span></div>
       </block>
@@ -25,7 +25,8 @@
 
 <script>
 import store from '@/store'
-
+import { showToast, showLoding } from '@/utils'
+import { delShoppingCarts } from '@/api/cart'
 export default {
   name: 'CartAction',
   props: ['sum', 'dues', 'checkedLength', 'checked'],
@@ -36,7 +37,34 @@ export default {
       this.$emit('handleAll', this.checked)
     },
     deleteCart () {
-      store.commit('cart/deleteCartItem')
+      const ids = []
+      const cartList = store.state.cart.cartList
+      const ls = cartList.length
+      const initCartList = cartList.filter(element => {
+        if (element.select) ids.push(element.id)
+        return !element.select
+      })
+      if (ls === initCartList.length) {
+        showToast('请选择要删除的商品')
+      } else {
+        showLoding('提示', '是否删除购物车商品')
+          .then(response => {
+            console.log('确定')
+            this._delShoppingCarts(ids, initCartList)
+          })
+      }
+    },
+    _delShoppingCarts (ids, initList) {
+      const postData = JSON.stringify({
+        ids,
+        token: 'string'
+      })
+      console.log(postData)
+      delShoppingCarts(postData)
+        .then(response => {
+          showToast(response.data)
+          store.commit('cart/init', initList)
+        })
     }
   },
   computed: {

@@ -36,6 +36,23 @@ export const showToast = (text) => {
     duration: 2000
   })
 }
+export const showLoding = (title, content) => {
+  return new Promise((resolve, reject) => {
+    wx.showModal({
+      title,
+      content,
+      success (res) {
+        if (res.confirm) {
+          // console.log('用户点击确定')
+          resolve(res)
+        } else if (res.cancel) {
+          // console.log('用户点击取消')
+          reject(res.cancel)
+        }
+      }
+    })
+  })
+}
 export const ajax = {
   git (url, params) {
   },

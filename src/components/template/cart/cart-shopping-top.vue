@@ -1,12 +1,12 @@
 <template>
 <div class="zan-panel">
   <div class="panel">
-    <div class="cart-location">
+    <div class="cart-location" @click="SelectAddress">
       <span class="iconfont icon-location"></span>
-      <span>送至：广州天河区</span>
+      <span>送至：{{address}}</span>
       <span class="zan-icon zan-icon-arrow"></span>
     </div>
-    <div @click="cartAdmin">
+    <div class="cart-admin" @click="cartAdmin">
       {{cut?'取消':'管理'}}
     </div>
   </div>
@@ -17,10 +17,21 @@
 import store from '@/store'
 export default {
   name: 'CartTop',
+  props: {
+    address: {
+      type: String,
+      default: ''
+    }
+  },
   methods: {
     cartAdmin () {
       store.commit('cart/cartAdminCut')
       this.cut = store.state.cart.cartAdmin
+    },
+    SelectAddress () {
+      wx.navigateTo({
+        url: `/pages/address_select/main`
+      })
     }
   },
   computed: {
@@ -33,6 +44,8 @@ export default {
 
 <style lang="less">
 @import url('~@/font/iconfont.css');
+@import url('~@/styles/color');
+
 .panel{
   display: flex;
   align-items: center;
@@ -45,4 +58,7 @@ export default {
     font-size: 20px;
   }
 }
+// .cart-admin{
+//   color: @minColor
+// }
 </style>

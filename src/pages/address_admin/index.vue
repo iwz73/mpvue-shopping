@@ -8,7 +8,7 @@
             <div class="">{{item.phone}}</div>
           </div>
           <div class="zan-cell__desc">
-           {{item.province + item.city + item.area + item.adress }}
+           {{item.province + item.city + item.area + item.address }}
           </div>
           <div class="cell_bt">
             <div class="cell_bt__left">

@@ -1,5 +1,5 @@
 import { ajax } from '@/utils/index'
-
+// 地址列表
 export function addressList (data) {
   return new Promise((resolve, reject) => {
     ajax.post('store/api/addressList', data)
@@ -11,6 +11,7 @@ export function addressList (data) {
       })
   })
 }
+// 新增地址
 export function addAddress (data) {
   return new Promise((resolve, reject) => {
     ajax.post('store/api/addAddress', data)
@@ -22,6 +23,7 @@ export function addAddress (data) {
       })
   })
 }
+// 删除地址
 export function delAddress (data) {
   return new Promise((resolve, reject) => {
     ajax.post('store/api/delAddress', data)
@@ -33,6 +35,7 @@ export function delAddress (data) {
       })
   })
 }
+// 设置默认收货地址
 export function setDefaultAddress (data) {
   return new Promise((resolve, reject) => {
     ajax.post('store/api/setDefaultAddress', data)

@@ -63,6 +63,10 @@ export default {
       const {componentId, selectedId} = e
       this[componentId].selectedId = selectedId
     }
+  },
+  onShow () {
+    this.tab.selectedId = this.$root.$mp.query.tag
+    console.log(this.tab.selectedId)
   }
 }
 </script>

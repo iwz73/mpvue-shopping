@@ -8,7 +8,7 @@
             <div class="">{{item.phone}}</div>
           </div>
           <div class="zan-cell__desc">
-           <span class="default-address zan-c-red" v-if="index === 0">[默认地址]</span> {{item.province + item.city + item.area + item.adress }}
+           <span class="default-address zan-c-red" v-if="index === 0">[默认地址]</span> {{item.province + item.city + item.area + item.address }}
           </div>
         </div>
         <div class="zan-cell__ft" > 
@@ -22,7 +22,7 @@
       <div @click="handleTo">--新增地址--</div>
     </div>
     
-    <button class="address-save zan-btn zan-btn--danger">确定</button>
+    <button class="address-save zan-btn zan-btn--danger" @click="handleComfirm">确定</button>
   </div>
 </template>
 
@@ -51,6 +51,11 @@ export default {
       wx.navigateTo({
         url: `/pages/address_admin/main`
       })
+    },
+    handleComfirm () {
+      const address = JSON.stringify(this.cellList[this.checked])
+      wx.setStorageSync('SelectAddress', address)
+      wx.navigateBack()
     },
     AddressList () {
       const postData = JSON.stringify({
